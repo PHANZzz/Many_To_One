@@ -18,8 +18,11 @@ public class Controller {
         this.authorRepository = authorRepository;
     }
     @PostMapping("/books")
-    public List<Book>createBooks(@RequestBody List<Book>books){
-        return bookRepository.saveAll(books);
+    public Book createBooks(@RequestBody Book books){
+        Author author=authorRepository.save(books.getAuthor());
+        books.setAuthor(author);
+        return bookRepository.save(books);
+
     }
     @PostMapping("/author")
     public Author createAuthor(@RequestBody Author author){
